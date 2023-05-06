@@ -1,0 +1,78 @@
+@import "../../scss/vars.scss";
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filter {
+  display: flex;
+  .choice {
+    margin-right: 30px;
+    padding: 5px 15px;
+    background-color: $backgroundColorGray;
+    border-radius: 20px;
+    color: $black;
+    cursor: pointer;
+  }
+  .active {
+    color: $whiteText;
+    background-color: $black;
+  }
+}
+.sort {
+  display: flex;
+  align-items: center;
+  position: relative;
+  p {
+    margin-right: 5px;
+  }
+  .sortItems {
+    overflow: hidden;
+
+    position: absolute;
+
+    color: $black;
+    top: 30px;
+    right: 0;
+    .sortItem {
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+    .animationChoice {
+      padding: 20px;
+      background-color: $backgroundColorGray;
+      border-radius: 20px;
+
+      animation: 0.3s linear sortItem;
+    }
+  }
+  span {
+    position: relative;
+    color: $orange;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      width: 100%;
+      background-color: $orange;
+      height: 1px;
+      left: 0;
+    }
+  }
+  svg {
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@keyframes sortItem {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
