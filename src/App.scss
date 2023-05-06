@@ -1,4 +1,4 @@
-@import './scss/vars.scss';
+@import "./scss/vars.scss";
 * {
   padding: 0px;
   margin: 0px;
@@ -125,9 +125,18 @@ legend {
   display: block;
 }
 
-.App{
-  background-color: $backgroundColor;
+.App {
+  background-color: $backgroundColorYellow;
+  min-height: 100vh;
+  min-width: 100vw;
+  padding-top: 50px;
 }
-.body {
 
+.container {
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 1400px;
+  width: 100%;
+  background-color: $backgroundColorWhite;
+  border-radius: 30px;
 }

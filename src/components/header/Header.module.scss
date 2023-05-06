@@ -1,0 +1,30 @@
+@import "../../scss/vars.scss";
+.bodyHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 90px;
+}
+.leftBody {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  width: 60%;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+  }
+  h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}

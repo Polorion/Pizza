@@ -1,0 +1,35 @@
+@import "../../../scss/vars.scss";
+.body {
+  display: flex;
+  background-color: $orange;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+.totalPrice {
+  margin-right: 40px;
+  color: $backgroundColorWhite;
+}
+.basket {
+  display: flex;
+  align-items: center;
+  .count {
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $backgroundColorWhite;
+    color: $black;
+    padding: 5px;
+    border-radius: 100%;
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    path {
+      fill: $backgroundColorWhite;
+    }
+  }
+}

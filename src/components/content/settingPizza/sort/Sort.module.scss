@@ -1,24 +1,5 @@
-@import "../../scss/vars.scss";
-.body {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.filter {
-  display: flex;
-  .choice {
-    margin-right: 30px;
-    padding: 5px 15px;
-    background-color: $backgroundColorGray;
-    border-radius: 20px;
-    color: $black;
-    cursor: pointer;
-  }
-  .active {
-    color: $whiteText;
-    background-color: $black;
-  }
-}
+@import "../../../../scss/vars";
+
 .sort {
   display: flex;
   align-items: center;
