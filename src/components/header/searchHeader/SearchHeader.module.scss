@@ -1,15 +1,22 @@
 @import "../../../scss/vars.scss";
 .bodySearch {
   position: relative;
-  svg {
+  .find {
     width: 15px;
     height: 15px;
     position: absolute;
     top: 12px;
     left: 10px;
   }
+  .cancel {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 12px;
+    right: 10px;
+  }
   input {
-    padding: 10px 10px 10px 30px;
+    padding: 10px 30px 10px 30px;
     border: 1px solid $black;
     border-radius: 20px;
   }

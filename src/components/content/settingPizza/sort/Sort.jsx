@@ -4,9 +4,12 @@ import { ReactComponent as SortIcon } from "../../../../accets/img/icon/sortIcon
 
 const Sort = ({ sort, setSort }) => {
   const sortChoice = [
-    { name: "названию", type: "name" },
-    { name: "рейтингу", type: "rating" },
-    { name: "цене", type: "price" },
+    { name: "названию ↑", type: "name" },
+    { name: "названию ↓", type: "name" },
+    { name: "рейтингу ↑", type: "rating" },
+    { name: "рейтингу ↓", type: "rating" },
+    { name: "цене ↑", type: "price" },
+    { name: "цене ↓", type: "price" },
   ];
   const [openSort, setOpenSort] = React.useState(false);
   const sortRef = React.useRef();

@@ -4,7 +4,7 @@ import PizzaBlock from "./pizzaBLock/PizzaBlock";
 
 const Content = () => {
   const [categories, setCategories] = React.useState(0);
-  const [sort, setSort] = React.useState({ name: "названию", type: "name" });
+  const [sort, setSort] = React.useState({ name: "названию ↑", type: "name" });
   return (
     <div>
       <SettingPizza
