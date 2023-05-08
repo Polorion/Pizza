@@ -1,11 +1,11 @@
 import * as React from "react";
 import S from "./Filter.module.scss";
 
-const Filter = () => {
-  const [choice, setChoice] = React.useState(0);
+const Filter = ({ categories, setCategories }) => {
   const filterChoice = [
     "Все",
-    "Мясная",
+    "Пепперони",
+    "Курица",
     "Открытая",
     "Закрытая",
     "Вегетарианская",
@@ -17,10 +17,10 @@ const Filter = () => {
         {filterChoice.map((el, i) => (
           <div
             onClick={() => {
-              setChoice(i);
+              setCategories(i);
             }}
             key={el}
-            className={`${S.choice} ${choice === i && S.active}`}
+            className={`${S.choice} ${categories === i && S.active}`}
           >
             {el}
           </div>

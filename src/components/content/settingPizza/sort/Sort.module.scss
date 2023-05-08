@@ -9,13 +9,13 @@
   }
   .sortItems {
     overflow: hidden;
-
     position: absolute;
-
+    cursor: auto;
     color: $black;
     top: 30px;
     right: 0;
     .sortItem {
+      cursor: pointer;
       &:not(:last-child) {
         margin-bottom: 10px;
       }
@@ -31,6 +31,7 @@
   span {
     position: relative;
     color: $orange;
+    cursor: pointer;
     &:after {
       content: "";
       position: absolute;

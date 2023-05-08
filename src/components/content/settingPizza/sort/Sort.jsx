@@ -2,9 +2,12 @@ import * as React from "react";
 import S from "./Sort.module.scss";
 import { ReactComponent as SortIcon } from "../../../../accets/img/icon/sortIcon.svg";
 
-const Sort = () => {
-  const sortChoice = ["популярные", "рейтингу", "цене"];
-  const [sortItem, setSortItem] = React.useState(0);
+const Sort = ({ sort, setSort }) => {
+  const sortChoice = [
+    { name: "названию", type: "name" },
+    { name: "рейтингу", type: "rating" },
+    { name: "цене", type: "price" },
+  ];
   const [openSort, setOpenSort] = React.useState(false);
   const sortRef = React.useRef();
   const openPopap = (e) => {
@@ -29,8 +32,7 @@ const Sort = () => {
           setOpenSort((prev) => !prev);
         }}
       >
-        {" "}
-        {sortChoice[sortItem]}
+        {sort.name}
         {openSort && (
           <div
             className={S.sortItems}
@@ -41,16 +43,16 @@ const Sort = () => {
             <div className={S.animationChoice}>
               {sortChoice.map(
                 (el, i) =>
-                  sortChoice[sortItem] !== el && (
+                  sort.name !== el.name && (
                     <div
                       key={i}
                       onClick={() => {
-                        setSortItem(i);
+                        setSort(el);
                         setOpenSort(false);
                       }}
                       className={S.sortItem}
                     >
-                      {el}
+                      {el.name}
                     </div>
                   )
               )}
