@@ -1,16 +1,13 @@
 import * as React from "react";
 import S from "./Sort.module.scss";
 import { ReactComponent as SortIcon } from "../../../../accets/img/icon/sortIcon.svg";
+import types from "../../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../../../../store/sliceFilter/sliceFilter";
 
-const Sort = ({ sort, setSort }) => {
-  const sortChoice = [
-    { name: "названию ↑", type: "name" },
-    { name: "названию ↓", type: "name" },
-    { name: "рейтингу ↑", type: "rating" },
-    { name: "рейтингу ↓", type: "rating" },
-    { name: "цене ↑", type: "price" },
-    { name: "цене ↓", type: "price" },
-  ];
+const Sort = () => {
+  const sort = useSelector((state) => state.filter.sort);
+  const dispatch = useDispatch();
   const [openSort, setOpenSort] = React.useState(false);
   const sortRef = React.useRef();
   const openPopap = (e) => {
@@ -44,13 +41,13 @@ const Sort = ({ sort, setSort }) => {
             }}
           >
             <div className={S.animationChoice}>
-              {sortChoice.map(
+              {types.sortChoice.map(
                 (el, i) =>
                   sort.name !== el.name && (
                     <div
                       key={i}
                       onClick={() => {
-                        setSort(el);
+                        dispatch(setSort(el));
                         setOpenSort(false);
                       }}
                       className={S.sortItem}

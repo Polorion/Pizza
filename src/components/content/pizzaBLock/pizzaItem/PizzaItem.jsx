@@ -1,8 +1,8 @@
 import * as React from "react";
 import S from "./PizzaItem.module.scss";
+import types from "../../../../types";
 
 const PizzaItem = ({ pizza }) => {
-  const doughThickness = ["Тонкое", "Толстое"];
   const [choiceThickness, setChoiceThickness] = React.useState(0);
   const [choiceSize, setChoiceSize] = React.useState(0);
   return (
@@ -24,7 +24,7 @@ const PizzaItem = ({ pizza }) => {
                   setChoiceThickness(i);
                 }}
               >
-                {doughThickness[type]}
+                {types.doughThickness[type]}
               </div>
             ))}
           </div>

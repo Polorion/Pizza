@@ -2,30 +2,47 @@ import * as React from "react";
 import S from "./SearchHeader.module.scss";
 import { ReactComponent as Find } from "../../../accets/img/icon/find.svg";
 import { ReactComponent as Cancel } from "../../../accets/img/icon/cancel.svg";
-import { SearchContext } from "../../../App";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchValue } from "../../../store/sliceFilter/sliceFilter";
+import debounce from "lodash.debounce";
 const SearchHeader = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const inputSearchValue = useSelector(
+    (state) => state.filter.inputSearchValue
+  );
+  const [value, setValue] = React.useState(inputSearchValue);
+  const dispatch = useDispatch();
+  const inputRef = React.useRef();
+
+  const clearInput = () => {
+    inputRef.current.focus();
+    dispatch(setSearchValue(""));
+    setValue("");
+  };
+  const setValueDebounce = React.useCallback(
+    debounce((e) => {
+      dispatch(setSearchValue(e));
+    }, 250),
+    []
+  );
+
+  const updateValue = (e) => {
+    setValue(e.target.value);
+    setValueDebounce(e.target.value);
+  };
   return (
     <div className={S.bodySearch}>
       <input
-        value={searchValue}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
+        ref={inputRef}
+        value={value}
+        onChange={updateValue}
         type="text"
         placeholder={"поиск "}
       />
       <div className={S.find}>
         <Find />
       </div>
-      <div
-        onClick={() => {
-          setSearchValue("");
-        }}
-        className={S.cancel}
-      >
-        {searchValue && <Cancel />}
+      <div onClick={clearInput} className={S.cancel}>
+        {inputSearchValue && <Cancel />}
       </div>
     </div>
   );

@@ -3,13 +3,15 @@ import S from "./PizzaBlock.module.scss";
 import PizzaItem from "./pizzaItem/PizzaItem";
 import axios from "axios";
 import SkeletonPizza from "./pizzaItem/SkeletonPizza";
-import { SearchContext } from "../../../App";
+import { useSelector } from "react-redux";
 
-const PizzaBlock = ({ categories, sort }) => {
+const PizzaBlock = () => {
+  const categories = useSelector((state) => state.filter.categories);
+  const sort = useSelector((state) => state.filter.sort);
   const [pizzasArray, setPizzasArray] = React.useState([]);
   const [isLoad, setIsLoad] = React.useState(false);
 
-  const { searchValue } = React.useContext(SearchContext);
+  const searchValue = useSelector((state) => state.filter.inputSearchValue);
   React.useEffect(() => {
     setIsLoad(false);
     const isCategories = categories > 0 ? categories : "";
