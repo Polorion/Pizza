@@ -19,9 +19,15 @@ export const counterSlice = createSlice({
     setSearchValue: (state, { payload }) => {
       state.inputSearchValue = payload;
     },
+    setParams: (state, { payload }) => {
+      state.categories = Number(payload.categories);
+
+      state.sort = payload.sortProperty;
+    },
   },
 });
 
-export const { setCategories, setSort, setSearchValue } = counterSlice.actions;
+export const { setCategories, setSort, setSearchValue, setParams } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
