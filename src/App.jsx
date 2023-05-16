@@ -1,18 +1,20 @@
 import "./App.scss";
-import Header from "./components/header/Header";
 import Content from "./components/content/Content";
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
+import Cart from "./components/cart/Cart";
+import Layout from "./layout/Layout";
 
-export const SearchContext = React.createContext();
 function App() {
   return (
     <div className="App">
       <div className="container">
-        <Header />
         <Routes>
-          <Route path={"/"} element={<Content />} />
-          <Route path={"/basket"} element={<div>1234</div>} />
+          <Route path={"/"} element={<Layout />}>
+            <Route path={""} element={<Content />} />
+            <Route path={"cart"} element={<Cart />} />
+            <Route path={"*"} element={<div>страница не найдена</div>} />
+          </Route>
         </Routes>
       </div>
     </div>

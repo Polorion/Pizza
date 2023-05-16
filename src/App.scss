@@ -129,12 +129,14 @@ legend {
   background-color: $backgroundColorYellow;
   padding-top: 50px;
   padding-bottom: 50px;
+  min-height: 100vh;
 }
 
 .container {
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 30px;
   max-width: 1400px;
+  height: 100%;
   width: 100%;
   background-color: $backgroundColorWhite;
   border-radius: 30px;

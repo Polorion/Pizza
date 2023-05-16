@@ -6,19 +6,19 @@ import SkeletonPizza from "./pizzaItem/SkeletonPizza";
 import { useDispatch, useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { setParams } from "../../../store/sliceFilter/sliceFilter";
+import { getAllItems, setParams } from "../../../store/sliceFilter/sliceFilter";
 import types from "../../../types";
 
 const PizzaBlock = () => {
   const categories = useSelector((state) => state.filter.categories);
   const navigate = useNavigate();
   const sort = useSelector((state) => state.filter.sort);
-  const [pizzasArray, setPizzasArray] = React.useState([]);
-  const [isLoad, setIsLoad] = React.useState(false);
+  const isLoad = useSelector((state) => state.filter.isLoading);
   const searchValue = useSelector((state) => state.filter.inputSearchValue);
   const dispatch = useDispatch();
   const searchRef = React.useRef(false);
   const isMountedRef = React.useRef(false);
+  const pizzasArray = useSelector((state) => state.filter.pizzaItems);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -45,30 +45,18 @@ const PizzaBlock = () => {
 
   React.useEffect(() => {
     if (!searchRef.current) {
-      setIsLoad(false);
-      const isCategories = categories > 0 ? categories : "";
-      const ASK = sort.type.includes("-") ? "desc" : " ask";
-      const sortType = sort.type.replace("-", "");
-      axios
-        .get(
-          `https://645754d80c15cb14820625cb.mockapi.io/Pizza?categories=${isCategories}&sortBy=${sortType}&order=${ASK}`
-        )
-        .then((res) => {
-          setIsLoad(true);
-          setPizzasArray(res.data);
-        });
+      dispatch(getAllItems({ categories, sort }));
     }
     searchRef.current = false;
   }, [categories, sort]);
-
-  const filter = pizzasArray.filter((el) =>
+  const filter = pizzasArray?.filter((el) =>
     el.name.toLowerCase().includes(searchValue.toLowerCase())
   );
   const skeleton = [...new Array(8)].map((el, i) => <SkeletonPizza key={i} />);
 
   return (
     <div className={S.body}>
-      {isLoad === false
+      {isLoad === true
         ? skeleton
         : filter.map((pizza) => <PizzaItem key={pizza.id} pizza={pizza} />)}
     </div>

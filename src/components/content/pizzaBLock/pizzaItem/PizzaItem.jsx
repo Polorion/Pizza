@@ -1,10 +1,21 @@
 import * as React from "react";
 import S from "./PizzaItem.module.scss";
 import types from "../../../../types";
+import { useDispatch } from "react-redux";
+import { addItemInCart } from "../../../../store/sliceCart/sliceCart";
 
 const PizzaItem = ({ pizza }) => {
   const [choiceThickness, setChoiceThickness] = React.useState(0);
-  const [choiceSize, setChoiceSize] = React.useState(0);
+  const [choiceSize, setChoiceSize] = React.useState({});
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    setChoiceSize({ id: 0, size: pizza.size[0] });
+  }, []);
+  const transferPizzaInCart = () => {
+    dispatch(
+      addItemInCart({ ...pizza, size: choiceSize, type: choiceThickness })
+    );
+  };
   return (
     <div className={S.wrapperPizza}>
       <div className={S.bodyPizza}>
@@ -32,9 +43,9 @@ const PizzaItem = ({ pizza }) => {
             {pizza.size.map((el, i) => (
               <div
                 onClick={() => {
-                  setChoiceSize(i);
+                  setChoiceSize({ id: i, size: el });
                 }}
-                className={`${S.sizeItem} ${choiceSize === i && S.active}`}
+                className={`${S.sizeItem} ${choiceSize.id === i && S.active}`}
                 key={el}
               >
                 {el}
@@ -44,7 +55,13 @@ const PizzaItem = ({ pizza }) => {
         </div>
         <div className={S.pricePizza}>
           <div>{pizza.price}p</div>
-          <button>Добавить</button>
+          <button
+            onClick={() => {
+              transferPizzaInCart();
+            }}
+          >
+            Добавить
+          </button>
         </div>
       </div>
     </div>
