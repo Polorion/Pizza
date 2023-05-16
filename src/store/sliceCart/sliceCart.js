@@ -21,6 +21,11 @@ export const cartSlice = createSlice({
       }
       state.count++;
     },
+    deleteItems: (state, { payload }) => {
+      const { count } = state.items.find((el) => el.idCart === payload);
+      state.items = state.items.filter((el) => el.idCart !== payload);
+      state.count = state.count - count;
+    },
     setItems: (state, { payload }) => {
       if (payload.type === "+") {
         state.items = state.items.map((el) => {
@@ -39,6 +44,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addItemInCart, setItems } = cartSlice.actions;
+export const { addItemInCart, setItems, deleteItems } = cartSlice.actions;
 
 export default cartSlice.reducer;

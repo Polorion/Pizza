@@ -29,5 +29,21 @@
   }
   .buttons {
     margin-right: auto;
+    display: flex;
+
+    button {
+      margin-right: 30px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 1px solid red;
+      border-radius: 100px;
+    }
   }
+}
+.clearItem {
+  cursor: pointer;
 }

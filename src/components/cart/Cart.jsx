@@ -2,7 +2,7 @@ import * as React from "react";
 import S from "./Cart.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import types from "../../types";
-import { setItems } from "../../store/sliceCart/sliceCart";
+import { deleteItems, setItems } from "../../store/sliceCart/sliceCart";
 
 const Cart = () => {
   const itemCart = useSelector((state) => state.cart.items);
@@ -18,7 +18,7 @@ const Cart = () => {
     return (
       <div className={S.body}>
         {itemCart.map((el) => (
-          <CartPizza el={el} key={el.id} />
+          <CartPizza el={el} key={el.idCart} />
         ))}
       </div>
     );
@@ -53,13 +53,22 @@ const CartPizza = ({ el }) => {
         </button>
         <button
           onClick={() => {
-            setItemsHandler("-");
+            el.count > 1 && setItemsHandler("-");
           }}
         >
           -
         </button>
       </div>
-      <div className={S.clearItem}> удалить из карзины</div>
+      <div
+        onClick={() => {
+          console.log(el.idCart);
+          dispatch(deleteItems(el.idCart));
+        }}
+        className={S.clearItem}
+      >
+        {" "}
+        удалить из карзины
+      </div>
     </div>
   );
 };
