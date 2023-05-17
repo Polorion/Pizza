@@ -3,7 +3,7 @@ import Content from "./components/content/Content";
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import Cart from "./components/cart/Cart";
-import Layout from "./layout/Layout";
+import Layout from "./layout/Layout.tsx";
 
 function App() {
   return (

@@ -3,10 +3,9 @@ import S from "./Header.module.scss";
 import { ReactComponent as Logo } from "../../accets/img/icon/pizzaHeaderIcon.svg";
 import SearchHeader from "./searchHeader/SearchHeader";
 import Basket from "./basket/Basket";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const location = useLocation();
   return (
     <div className={S.bodyHeader}>
       <div className={S.leftBody}>
@@ -21,7 +20,7 @@ const Header = () => {
         </div>
         <SearchHeader />
       </div>
-      {location.pathname !== "/cart" && <Basket />}
+      <Basket />
     </div>
   );
 };

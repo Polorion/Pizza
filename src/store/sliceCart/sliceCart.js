@@ -23,20 +23,27 @@ export const cartSlice = createSlice({
     },
     deleteItems: (state, { payload }) => {
       const { count } = state.items.find((el) => el.idCart === payload);
+      console.log(count);
       state.items = state.items.filter((el) => el.idCart !== payload);
       state.count = state.count - count;
     },
     setItems: (state, { payload }) => {
       if (payload.type === "+") {
+        state.count++;
         state.items = state.items.map((el) => {
           if (el.idCart === payload.idCart) {
             return { ...el, count: el.count + 1 };
+          } else {
+            return el;
           }
         });
       } else {
+        state.count--;
         state.items = state.items.map((el) => {
           if (el.idCart === payload.idCart) {
             return { ...el, count: el.count - 1 };
+          } else {
+            return el;
           }
         });
       }
