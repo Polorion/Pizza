@@ -5,7 +5,7 @@ import { setCategories } from "../../../../store/sliceFilter/sliceFilter";
 import types from "../../../../types";
 
 const Filter = () => {
-  const categories = useSelector((state) => state.filter.categories);
+  const categories = useSelector((state: any) => state.filter.categories);
   const dispatch = useDispatch();
 
   return (

@@ -1,4 +1,13 @@
-const types = {
+interface Itypes {
+  doughThickness: string[];
+  filterChoice: string[];
+  sortChoice: {
+    name: string;
+    type: string;
+  }[];
+}
+
+const types: Itypes = {
   doughThickness: ["Тонкое", "Толстое"],
   filterChoice: [
     "Все",

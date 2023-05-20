@@ -5,16 +5,16 @@ import { ReactComponent as Cancel } from "../../../accets/img/icon/cancel.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../../store/sliceFilter/sliceFilter";
 import debounce from "lodash.debounce";
-const SearchHeader = () => {
+const SearchHeader: React.FC = () => {
   const inputSearchValue = useSelector(
-    (state) => state.filter.inputSearchValue
+    (state: any) => state.filter.inputSearchValue
   );
   const [value, setValue] = React.useState(inputSearchValue);
   const dispatch = useDispatch();
-  const inputRef = React.useRef();
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const clearInput = () => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
     dispatch(setSearchValue(""));
     setValue("");
   };
@@ -25,7 +25,7 @@ const SearchHeader = () => {
     []
   );
 
-  const updateValue = (e) => {
+  const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
     setValueDebounce(e.target.value);
   };

@@ -5,20 +5,23 @@ import types from "../../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../../../../store/sliceFilter/sliceFilter";
 
-const Sort = () => {
-  const sort = useSelector((state) => state.filter.sort);
+type PopupClick = MouseEvent & {
+  composedPath: () => [];
+};
+const Sort: React.FC = () => {
+  const sort = useSelector((state: any) => state.filter.sort);
   const dispatch = useDispatch();
-  const [openSort, setOpenSort] = React.useState(false);
-  const sortRef = React.useRef();
-  const openPopap = (e) => {
-    if (e.target.parentNode !== sortRef.current) {
-      setOpenSort(false);
-    }
-  };
+  const [openSort, setOpenSort] = React.useState<boolean>(false);
+  const sortRef = React.useRef<HTMLSpanElement>(null);
   React.useEffect(() => {
-    window.addEventListener("click", openPopap);
+    const openPopup = (e: PopupClick | MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
+        setOpenSort(false);
+      }
+    };
+    document.body.addEventListener("click", openPopup);
     return () => {
-      window.removeEventListener("click", openPopap);
+      document.body.removeEventListener("click", openPopup);
     };
   }, []);
   return (
@@ -27,27 +30,22 @@ const Sort = () => {
       <p>сортировка по: </p>
       <span
         ref={sortRef}
-        onClick={(e) => {
-          e.stopPropagation();
-          setOpenSort((prev) => !prev);
+        onClick={() => {
+          setOpenSort(true);
         }}
       >
         {sort.name}
         {openSort && (
-          <div
-            className={S.sortItems}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
+          <div className={S.sortItems}>
             <div className={S.animationChoice}>
               {types.sortChoice.map(
                 (el, i) =>
                   sort.name !== el.name && (
                     <div
                       key={i}
-                      onClick={() => {
+                      onClick={(e) => {
                         dispatch(setSort(el));
+                        e.stopPropagation();
                         setOpenSort(false);
                       }}
                       className={S.sortItem}

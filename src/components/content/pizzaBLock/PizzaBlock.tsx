@@ -1,7 +1,6 @@
 import * as React from "react";
 import S from "./PizzaBlock.module.scss";
 import PizzaItem from "./pizzaItem/PizzaItem";
-import axios from "axios";
 import SkeletonPizza from "./pizzaItem/SkeletonPizza";
 import { useDispatch, useSelector } from "react-redux";
 import qs from "qs";
@@ -9,16 +8,23 @@ import { useNavigate } from "react-router-dom";
 import { getAllItems, setParams } from "../../../store/sliceFilter/sliceFilter";
 import types from "../../../types";
 
+export interface PizzaItemType {
+  id: number;
+  categories: number[];
+  imgUrl: string;
+  name: string;
+  size: string[];
+  type: number[];
+  rating: number;
+  price: number;
+}
 const PizzaBlock = () => {
-  const categories = useSelector((state) => state.filter.categories);
+  const { categories, sort, isLoading, inputSearchValue, pizzaItems } =
+    useSelector((state: any) => state.filter);
   const navigate = useNavigate();
-  const sort = useSelector((state) => state.filter.sort);
-  const isLoad = useSelector((state) => state.filter.isLoading);
-  const searchValue = useSelector((state) => state.filter.inputSearchValue);
   const dispatch = useDispatch();
-  const searchRef = React.useRef(false);
-  const isMountedRef = React.useRef(false);
-  const pizzasArray = useSelector((state) => state.filter.pizzaItems);
+  const searchRef = React.useRef<boolean>(false);
+  const isMountedRef = React.useRef<boolean>(false);
 
   React.useEffect(() => {
     if (window.location.search) {
@@ -45,20 +51,23 @@ const PizzaBlock = () => {
 
   React.useEffect(() => {
     if (!searchRef.current) {
+      // @ts-ignore
       dispatch(getAllItems({ categories, sort }));
     }
     searchRef.current = false;
   }, [categories, sort]);
-  const filter = pizzasArray?.filter((el) =>
-    el.name.toLowerCase().includes(searchValue.toLowerCase())
+  const filter = pizzaItems?.filter((el: PizzaItemType) =>
+    el.name.toLowerCase().includes(inputSearchValue.toLowerCase())
   );
   const skeleton = [...new Array(8)].map((el, i) => <SkeletonPizza key={i} />);
 
   return (
     <div className={S.body}>
-      {isLoad === true
+      {isLoading === true
         ? skeleton
-        : filter.map((pizza) => <PizzaItem key={pizza.id} pizza={pizza} />)}
+        : filter.map((pizza: PizzaItemType) => (
+            <PizzaItem key={pizza.id} pizza={pizza} />
+          ))}
     </div>
   );
 };

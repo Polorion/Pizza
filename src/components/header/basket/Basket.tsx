@@ -4,7 +4,7 @@ import { ReactComponent as BasketIcon } from "../../../accets/img/icon/basket.sv
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Basket = () => {
-  const countItems = useSelector((state) => state.cart.count);
+  const countItems = useSelector((state: any) => state.cart.count);
   return (
     <div className={S.body}>
       <div className={S.totalPrice}>0р</div>

@@ -3,8 +3,9 @@ import S from "./PizzaItem.module.scss";
 import types from "../../../../types";
 import { useDispatch } from "react-redux";
 import { addItemInCart } from "../../../../store/sliceCart/sliceCart";
+import { PizzaItemType } from "../PizzaBlock";
 
-const PizzaItem = ({ pizza }) => {
+const PizzaItem = ({ pizza }: PizzaItemType) => {
   const [choiceThickness, setChoiceThickness] = React.useState(0);
   const [choiceSize, setChoiceSize] = React.useState({});
   const dispatch = useDispatch();
