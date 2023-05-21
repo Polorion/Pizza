@@ -2,23 +2,31 @@ import { useDispatch } from "react-redux";
 import { deleteItems, setItems } from "../../store/sliceCart/sliceCart";
 import S from "./Cart.module.scss";
 import types from "../../types";
+import { PizzaItemInCart } from "./Cart";
 
-export const CartPizza = ({ el }) => {
+export const CartPizza: React.FC<PizzaItemInCart> = ({
+  idCart,
+  type,
+  count,
+  size,
+  name,
+  imgUrl,
+}) => {
   const dispatch = useDispatch();
-  const setItemsHandler = (type) => {
-    dispatch(setItems({ type, idCart: el.idCart }));
+  const setItemsHandler = (type: any) => {
+    dispatch(setItems({ type, idCart: idCart }));
   };
   return (
     <div className={S.bodyItem}>
       <div className={S.img}>
-        <img src={el.imgUrl} alt="" />
+        <img src={imgUrl} alt="" />
       </div>
       <div className={S.info}>
-        <div className={S.name}>{el.name}</div>
-        <div className={S.type}>{types.doughThickness[el.type]}</div>
-        <div className={S.size}>{el.size.size} см</div>
+        <div className={S.name}>{name}</div>
+        <div className={S.type}>{types.doughThickness[type]}</div>
+        <div className={S.size}>{size.size} см</div>
       </div>
-      <div className={S.count}> количество: {el.count}</div>
+      <div className={S.count}> количество: {count}</div>
       <div className={S.buttons}>
         <button
           onClick={() => {
@@ -29,7 +37,7 @@ export const CartPizza = ({ el }) => {
         </button>
         <button
           onClick={() => {
-            el.count > 1 && setItemsHandler("-");
+            count && count > 1 && setItemsHandler("-");
           }}
         >
           -
@@ -37,8 +45,7 @@ export const CartPizza = ({ el }) => {
       </div>
       <div
         onClick={() => {
-          console.log(el.idCart);
-          dispatch(deleteItems(el.idCart));
+          dispatch(deleteItems(idCart));
         }}
         className={S.clearItem}
       >

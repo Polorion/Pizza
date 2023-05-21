@@ -5,43 +5,68 @@ import { useDispatch } from "react-redux";
 import { addItemInCart } from "../../../../store/sliceCart/sliceCart";
 import { PizzaItemType } from "../PizzaBlock";
 
-const PizzaItem = ({ pizza }: PizzaItemType) => {
+type ChoiceSizeType = {
+  id: number;
+  size: string;
+};
+
+const PizzaItem = ({
+  imgUrl,
+  type,
+  id,
+  rating,
+  size,
+  name,
+  price,
+  categories,
+}: PizzaItemType) => {
   const [choiceThickness, setChoiceThickness] = React.useState(0);
-  const [choiceSize, setChoiceSize] = React.useState({});
+  const [choiceSize, setChoiceSize] = React.useState<ChoiceSizeType>({
+    id: 0,
+    size: size[0],
+  });
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    setChoiceSize({ id: 0, size: pizza.size[0] });
-  }, []);
+
   const transferPizzaInCart = () => {
     dispatch(
-      addItemInCart({ ...pizza, size: choiceSize, type: choiceThickness })
+      addItemInCart({
+        imgUrl,
+        id,
+        rating,
+        name,
+        price,
+        categories,
+        size: choiceSize,
+        type: choiceThickness,
+      })
     );
   };
   return (
     <div className={S.wrapperPizza}>
       <div className={S.bodyPizza}>
         <div className={S.imgPizza}>
-          <img src={pizza.imgUrl} alt="" />
+          <img src={imgUrl} alt="" />
         </div>
-        <div className={S.namePizza}>{pizza.name}</div>
+        <div className={S.namePizza}>{name}</div>
         <div className={S.settingPizza}>
           <div className={S.doughThickness}>
-            {pizza.type.map((type, i) => (
-              <div
-                key={type}
-                className={`${S.thickness} ${
-                  choiceThickness === i && S.active
-                }`}
-                onClick={() => {
-                  setChoiceThickness(i);
-                }}
-              >
-                {types.doughThickness[type]}
-              </div>
-            ))}
+            {Array.isArray(type) &&
+              type.map((type, i) => (
+                <div
+                  key={type}
+                  className={`${S.thickness} ${
+                    choiceThickness === i && S.active
+                  }`}
+                  onClick={() => {
+                    setChoiceThickness(i);
+                  }}
+                >
+                  {types.doughThickness[type]}
+                </div>
+              ))}
           </div>
           <div className={S.SizePizza}>
-            {pizza.size.map((el, i) => (
+            {size.map((el, i) => (
               <div
                 onClick={() => {
                   setChoiceSize({ id: i, size: el });
@@ -55,7 +80,7 @@ const PizzaItem = ({ pizza }: PizzaItemType) => {
           </div>
         </div>
         <div className={S.pricePizza}>
-          <div>{pizza.price}p</div>
+          <div>{price}p</div>
           <button
             onClick={() => {
               transferPizzaInCart();

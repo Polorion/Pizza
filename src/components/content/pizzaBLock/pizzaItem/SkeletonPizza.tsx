@@ -2,7 +2,7 @@ import React from "react";
 import ContentLoader from "react-content-loader";
 import S from "./PizzaItem.module.scss";
 
-const SkeletonPizza = (props) => (
+const SkeletonPizza: React.FC = (props: any) => (
   <div className={S.wrapperPizza}>
     <ContentLoader
       speed={2}

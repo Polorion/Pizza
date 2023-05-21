@@ -8,17 +8,20 @@ import { useNavigate } from "react-router-dom";
 import { getAllItems, setParams } from "../../../store/sliceFilter/sliceFilter";
 import types from "../../../types";
 
-export interface PizzaItemType {
-  id: number;
+export type PizzaItemType = {
   categories: number[];
+  id: number;
   imgUrl: string;
   name: string;
-  size: string[];
-  type: number[];
-  rating: number;
   price: number;
-}
-const PizzaBlock = () => {
+  rating: number;
+  size: string[];
+  type: number[] | { id: number; size: string };
+  idCart?: number;
+  count?: number;
+};
+
+const PizzaBlock: React.FC = () => {
   const { categories, sort, isLoading, inputSearchValue, pizzaItems } =
     useSelector((state: any) => state.filter);
   const navigate = useNavigate();
@@ -56,7 +59,7 @@ const PizzaBlock = () => {
     }
     searchRef.current = false;
   }, [categories, sort]);
-  const filter = pizzaItems?.filter((el: PizzaItemType) =>
+  const filter = pizzaItems?.filter((el: any) =>
     el.name.toLowerCase().includes(inputSearchValue.toLowerCase())
   );
   const skeleton = [...new Array(8)].map((el, i) => <SkeletonPizza key={i} />);
@@ -66,7 +69,7 @@ const PizzaBlock = () => {
       {isLoading === true
         ? skeleton
         : filter.map((pizza: PizzaItemType) => (
-            <PizzaItem key={pizza.id} pizza={pizza} />
+            <PizzaItem key={pizza.id} {...pizza} />
           ))}
     </div>
   );
