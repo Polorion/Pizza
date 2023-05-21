@@ -5,13 +5,9 @@ import SkeletonPizza from "./pizzaItem/SkeletonPizza";
 import { useDispatch, useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import {
-  getAllItems,
-  setParams,
-  SetParamsType,
-} from "../../../store/sliceFilter/sliceFilter";
+import { getAllItems, setParams } from "../../../store/sliceFilter/sliceFilter";
 import types from "../../../types";
-import { RootState } from "../../../store/store";
+import { RootState, useAppDispatch } from "../../../store/store";
 
 export type PizzaItemType = {
   categories: number[];
@@ -30,7 +26,7 @@ const PizzaBlock: React.FC = () => {
   const { categories, sort, isLoading, inputSearchValue, pizzaItems } =
     useSelector((state: RootState) => state.filter);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const searchRef = React.useRef<boolean>(false);
   const isMountedRef = React.useRef<boolean>(false);
 
@@ -41,7 +37,6 @@ const PizzaBlock: React.FC = () => {
       const sortProperty = types.sortChoice.find((el) => {
         return el.type === params.sort;
       });
-      console.log({ ...params, sortProperty });
       if (sortProperty) {
         dispatch(
           setParams({
@@ -67,12 +62,11 @@ const PizzaBlock: React.FC = () => {
 
   React.useEffect(() => {
     if (!searchRef.current) {
-      // @ts-ignore
       dispatch(getAllItems({ categories, sort }));
     }
     searchRef.current = false;
   }, [categories, sort]);
-  const filter = pizzaItems?.filter((el: any) =>
+  const filter = pizzaItems?.filter((el) =>
     el.name.toLowerCase().includes(inputSearchValue.toLowerCase())
   );
   const skeleton = [...new Array(8)].map((el, i) => <SkeletonPizza key={i} />);
