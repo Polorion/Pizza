@@ -3,6 +3,7 @@ import S from "./Cart.module.scss";
 import { useSelector } from "react-redux";
 import { CartPizza } from "./CartPizza";
 import { PizzaItemType } from "../content/pizzaBLock/PizzaBlock";
+import { RootState } from "../../store/store";
 export type PizzaItemInCart = {
   imgUrl: string;
   id: number;
@@ -20,7 +21,7 @@ export type PizzaItemInCart = {
 };
 
 const Cart: React.FC = () => {
-  const itemCart = useSelector((state: any) => state.cart.items);
+  const itemCart = useSelector((state: RootState) => state.cart.items);
   // @ts-ignore
   if (!itemCart.length > 0) {
     return (

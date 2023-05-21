@@ -1,10 +1,18 @@
+export type SortChoiceType = {
+  name:
+    | "названию ↑"
+    | "рейтингу ↑"
+    | "цене ↑"
+    | "названию ↓"
+    | "рейтингу ↓"
+    | "цене ↓";
+  type: "name" | "rating" | "price" | "-name" | "-rating" | "-price";
+};
+
 interface Itypes {
   doughThickness: string[];
   filterChoice: string[];
-  sortChoice: {
-    name: string;
-    type: string;
-  }[];
+  sortChoice: SortChoiceType[];
 }
 
 const types: Itypes = {

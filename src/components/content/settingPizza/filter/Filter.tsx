@@ -3,9 +3,10 @@ import S from "./Filter.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategories } from "../../../../store/sliceFilter/sliceFilter";
 import types from "../../../../types";
+import { RootState } from "../../../../store/store";
 
 const Filter = () => {
-  const categories = useSelector((state: any) => state.filter.categories);
+  const categories = useSelector((state: RootState) => state.filter.categories);
   const dispatch = useDispatch();
 
   return (

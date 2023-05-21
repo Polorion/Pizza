@@ -4,12 +4,13 @@ import { ReactComponent as SortIcon } from "../../../../accets/img/icon/sortIcon
 import types from "../../../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../../../../store/sliceFilter/sliceFilter";
+import { RootState } from "../../../../store/store";
 
 type PopupClick = MouseEvent & {
   composedPath: () => [];
 };
 const Sort: React.FC = () => {
-  const sort = useSelector((state: any) => state.filter.sort);
+  const sort = useSelector((state: RootState) => state.filter.sort);
   const dispatch = useDispatch();
   const [openSort, setOpenSort] = React.useState<boolean>(false);
   const sortRef = React.useRef<HTMLSpanElement>(null);

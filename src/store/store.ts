@@ -8,3 +8,5 @@ export const store = configureStore({
     cart: cartSlice,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;

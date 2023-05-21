@@ -5,8 +5,13 @@ import SkeletonPizza from "./pizzaItem/SkeletonPizza";
 import { useDispatch, useSelector } from "react-redux";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { getAllItems, setParams } from "../../../store/sliceFilter/sliceFilter";
+import {
+  getAllItems,
+  setParams,
+  SetParamsType,
+} from "../../../store/sliceFilter/sliceFilter";
 import types from "../../../types";
+import { RootState } from "../../../store/store";
 
 export type PizzaItemType = {
   categories: number[];
@@ -23,7 +28,7 @@ export type PizzaItemType = {
 
 const PizzaBlock: React.FC = () => {
   const { categories, sort, isLoading, inputSearchValue, pizzaItems } =
-    useSelector((state: any) => state.filter);
+    useSelector((state: RootState) => state.filter);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const searchRef = React.useRef<boolean>(false);
@@ -36,8 +41,16 @@ const PizzaBlock: React.FC = () => {
       const sortProperty = types.sortChoice.find((el) => {
         return el.type === params.sort;
       });
-      dispatch(setParams({ ...params, sortProperty }));
-      searchRef.current = true;
+      console.log({ ...params, sortProperty });
+      if (sortProperty) {
+        dispatch(
+          setParams({
+            sort: sortProperty,
+            categories: Number(params.categories),
+          })
+        );
+        searchRef.current = true;
+      }
     }
   }, []);
 

@@ -5,9 +5,10 @@ import { ReactComponent as Cancel } from "../../../accets/img/icon/cancel.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchValue } from "../../../store/sliceFilter/sliceFilter";
 import debounce from "lodash.debounce";
+import { RootState } from "../../../store/store";
 const SearchHeader: React.FC = () => {
   const inputSearchValue = useSelector(
-    (state: any) => state.filter.inputSearchValue
+    (state: RootState) => state.filter.inputSearchValue
   );
   const [value, setValue] = React.useState(inputSearchValue);
   const dispatch = useDispatch();
